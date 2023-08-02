@@ -9,7 +9,11 @@ export const TransactionsContextProvider = ({ children }) => {
 
     const removeTransactionFromList = () => {}
 
-    const contextValue = { transactions, addTransactionToList, removeTransactionFromList };
+    const clearTransactions = () => {
+        setTranactions([]);
+    }
+
+    const contextValue = { transactions, addTransactionToList, removeTransactionFromList, clearTransactions };
 
     return (
         <TransactionsContext.Provider value={ contextValue }>
