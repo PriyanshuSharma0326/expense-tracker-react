@@ -1,24 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import React, { useContext, useEffect, useState } from "react";
 
 import Transaction from "./components/Transaction";
 import Balance from "./components/Balance";
+import { TransactionsContext } from "./context/TransactionsContext";
+import { BalanceContext } from "./context/BalanceContext";
 
 export default function App() {
-    const [transactions, setTranactions] = useState([]);
-
-    const [amounts, setAmounts] = useState({
-        currentBalance: 0,
-        incomeBalance: 0,
-        expenseBalance: 0
-    });
-
-    const [inputs, setInputs] = useState({
-        title: '',
-        amount: '',
-        transactionType: '',
-        id: ''
-    });
+    const { inputs, setInputs, clearInputs, transactions, addTransactionToList } = useContext(TransactionsContext);
+    const { amounts, updateAmounts } = useContext(BalanceContext);
 
     const inputHandler = (e) => {
         setInputs({
@@ -29,22 +18,12 @@ export default function App() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
-        setTranactions([...transactions, {
-            ...inputs,
-            id: uuidv4()
-        }]);
-
-        clearInputs();
+        addTransactionToList();
+        refreshForm();
     }
 
-    const clearInputs = () => {
-        setInputs({
-            title: '',
-            amount: '',
-            transactionType: '',
-            id: ''
-        });
+    const refreshForm = () => {
+        clearInputs();
     }
 
     useEffect(() => {
@@ -62,12 +41,8 @@ export default function App() {
             , 0);
     
             let currentAmount = incomeAmount - expenseAmount;
-    
-            setAmounts({
-                incomeBalance: incomeAmount,
-                expenseBalance: expenseAmount,
-                currentBalance: currentAmount
-            });
+            
+            updateAmounts(incomeAmount, expenseAmount, currentAmount);
         }
 
         updateBalance();

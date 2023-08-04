@@ -3,13 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './styles/index.css';
 import App from './App.js';
 import { TransactionsContextProvider } from './context/TransactionsContext';
+import { BalanceContextProvider } from './context/BalanceContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
-        <TransactionsContextProvider>
-            <App />
-        </TransactionsContextProvider>
+        <BalanceContextProvider>
+            <TransactionsContextProvider>
+                <App />
+            </TransactionsContextProvider>
+        </BalanceContextProvider>
     </React.StrictMode>
 );

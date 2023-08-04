@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function Balance({ currentBalance, incomeBalance, expenseBalance }) {
     return (
@@ -6,7 +6,7 @@ function Balance({ currentBalance, incomeBalance, expenseBalance }) {
             <div className="balance-info">
                 <h1 className="balance-title">Your balance</h1>
                 <h1 className="current-balance" id="current-balance">
-                    ₹{currentBalance}
+                    {currentBalance < 0 ? "-₹" + (-currentBalance) : "₹" + currentBalance}
                 </h1>
             </div>
 
