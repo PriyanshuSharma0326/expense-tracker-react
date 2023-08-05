@@ -9,10 +9,10 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
     <React.StrictMode>
-        <BalanceContextProvider>
-            <TransactionsContextProvider>
+        <TransactionsContextProvider>
+            <BalanceContextProvider>
                 <App />
-            </TransactionsContextProvider>
-        </BalanceContextProvider>
+            </BalanceContextProvider>
+        </TransactionsContextProvider>
     </React.StrictMode>
 );

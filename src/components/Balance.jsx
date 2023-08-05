@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/Balance.css';
 
 function Balance({ currentBalance, incomeBalance, expenseBalance }) {
     return (

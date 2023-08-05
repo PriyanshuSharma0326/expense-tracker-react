@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 
 import Transaction from "./components/Transaction";
 import Balance from "./components/Balance";
@@ -6,10 +6,27 @@ import { TransactionsContext } from "./context/TransactionsContext";
 import { BalanceContext } from "./context/BalanceContext";
 
 export default function App() {
-    const { inputs, setInputs, clearInputs, transactions, addTransactionToList } = useContext(TransactionsContext);
-    const { amounts, updateAmounts } = useContext(BalanceContext);
+    const { transactions, addTransactionToList } = useContext(TransactionsContext);
+    const { amounts } = useContext(BalanceContext);
+
+    const [inputs, setInputs] = useState({
+        title: '',
+        amount: '',
+        transactionType: '',
+        id: ''
+    });
+
+    const clearInputs = () => {
+        setInputs({
+            title: '',
+            amount: '',
+            transactionType: '',
+            id: ''
+        });
+    }
 
     const inputHandler = (e) => {
+        console.log(e.target.value);
         setInputs({
             ...inputs, 
             [e.target.name]: e.target.value
@@ -18,35 +35,13 @@ export default function App() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        addTransactionToList();
+        addTransactionToList(inputs);
         refreshForm();
     }
 
     const refreshForm = () => {
         clearInputs();
     }
-
-    useEffect(() => {
-        const updateBalance = () => {
-            let incomeAmount = transactions?.filter(transaction => 
-                transaction.transactionType === 'income'
-            ).reduce((prev, curr) => 
-                prev + Number(curr.amount)
-            , 0);
-    
-            let expenseAmount = transactions?.filter(transaction => 
-                transaction.transactionType === 'expense'
-            ).reduce((prev, curr) => 
-                prev + Number(curr.amount)
-            , 0);
-    
-            let currentAmount = incomeAmount - expenseAmount;
-            
-            updateAmounts(incomeAmount, expenseAmount, currentAmount);
-        }
-
-        updateBalance();
-    }, [transactions]);
 
     return (
         <div className="App">
@@ -79,7 +74,7 @@ export default function App() {
             <div className="transaction-input-form">
                 <h3 className="transaction-form-title">Add New Transaction</h3>
 
-                <form onSubmit={handleSubmit} action="" className="input-form" id="input-form">
+                <form onSubmit={handleSubmit} className="input-form">
                     <div className="transaction-name-input-box">
                         <label htmlFor="transaction-name-input">Title</label>
 

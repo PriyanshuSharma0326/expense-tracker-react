@@ -1,0 +1,67 @@
+.transaction {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.transaction:hover .transaction-text{
+    width: 78%;
+}
+
+.transaction-text {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    box-shadow: 0px 4px 12px rgb(0, 0, 0, 18%);
+}
+
+.transaction-text:hover {
+    cursor: pointer;
+}
+
+.transaction:hover .delete-button, .transaction:hover .edit-button {
+    display: block;
+}
+
+.transaction-name, .transaction-amount {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.transaction-name {
+    margin-right: auto;
+}
+
+.transaction-amount {
+    margin-left: auto;
+}
+
+.gain {
+    color: var(--green);
+}
+
+.loss {
+    color: var(--not-red);
+}
+
+.delete-button {
+    display: none;
+    padding: 0 0.15rem;
+    outline: none;
+    border: none;
+    background-color: var(--true-white);
+    line-height: 0;
+    cursor: pointer;
+}
+
+.edit-button {
+    display: none;
+    outline: none;
+    border: none;
+    background-color: var(--true-white);
+    line-height: 0;
+    cursor: pointer;
+}

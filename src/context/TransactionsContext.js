@@ -6,23 +6,7 @@ export const TransactionsContext = createContext();
 export const TransactionsContextProvider = ({ children }) => {
     const [transactions, setTranactions] = useState([]);
 
-    const [inputs, setInputs] = useState({
-        title: '',
-        amount: '',
-        transactionType: '',
-        id: ''
-    });
-
-    const clearInputs = () => {
-        setInputs({
-            title: '',
-            amount: '',
-            transactionType: '',
-            id: ''
-        });
-    }
-
-    const addTransactionToList = () => {
+    const addTransactionToList = (inputs) => {
         setTranactions([...transactions, {
             ...inputs,
             id: uuidv4()
@@ -30,7 +14,6 @@ export const TransactionsContextProvider = ({ children }) => {
     }
 
     const removeTransactionFromList = (id) => {
-        // console.log(id);
         let newTransactions = transactions.filter(item => 
             item.id !== id
         );
@@ -42,7 +25,7 @@ export const TransactionsContextProvider = ({ children }) => {
         setTranactions([]);
     }
 
-    const contextValue = { inputs, setInputs, clearInputs, transactions, addTransactionToList, removeTransactionFromList, clearTransactions };
+    const contextValue = { transactions, addTransactionToList, removeTransactionFromList, clearTransactions };
 
     return (
         <TransactionsContext.Provider value={ contextValue }>
